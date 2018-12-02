@@ -67,11 +67,20 @@ pub mod helpers {
 
         (twice, thrice)
     }
+
+    /// Read the given input into lines
+    pub fn read(line: &str) -> Vec<&str> {
+        line.lines()
+            .map(str::trim)
+            .filter(|s| !s.is_empty())
+            .collect()
+    }
 }
 
 #[test]
 fn examples() {
-    let one: Vec<&str> = r"
+    let one = helpers::read(
+        r"
     abcdef
     bababc
     abbcde
@@ -79,12 +88,11 @@ fn examples() {
     aabcdd
     abcdee
     ababab
-    ".lines()
-        .map(str::trim)
-        .filter(|s| !s.is_empty())
-        .collect();
+    ",
+    );
 
-    let two: Vec<&str> = r"
+    let two = helpers::read(
+        r"
     abcde
     fghij
     klmno
@@ -92,10 +100,8 @@ fn examples() {
     fguij
     axcye
     wvxyz
-    ".lines()
-        .map(str::trim)
-        .filter(|s| !s.is_empty())
-        .collect();
+    ",
+    );
 
     assert_eq!(part1(&one), 12);
     assert_eq!(part2(&two), String::from("fgij"));
@@ -103,11 +109,7 @@ fn examples() {
 
 #[test]
 fn solution() {
-    let input: Vec<&str> = include_str!("input/2")
-        .lines()
-        .map(str::trim)
-        .filter(|s| !s.is_empty())
-        .collect();
+    let input: Vec<&str> = helpers::read(include_str!("input/2"));
     assert_eq!(part1(&input), 7192);
     assert_eq!(part2(&input), "mbruvapghxlzycbhmfqjonsie");
 }

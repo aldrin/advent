@@ -16,4 +16,5 @@
 //!
 //! [Advent of Code]: https://adventofcode.com/
 
+pub mod y2017;
 pub mod y2018;
