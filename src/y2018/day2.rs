@@ -2,6 +2,8 @@
 // Licensed under the MIT License <https://opensource.org/licenses/MIT>
 //! Inventory Management System ([Statement](https://adventofcode.com/2018/day/2)).
 
+use std::collections::HashMap;
+
 /// Find the checksum of the input defined as the product of the number of lines in the input that
 /// have 2 characters repeated with the number of lines with three characters repeated.
 /// `O(n*m)` for `n` lines with `m` chars each. `O(1)` extra space for a map to count characters.
@@ -10,7 +12,7 @@ pub fn part1(lines: &[&str]) -> u32 {
     let mut thrice = 0;
 
     for line in lines {
-        let (two, three) = helpers::repeated(*line);
+        let (two, three) = repeated(*line);
         if two {
             twice += 1;
         }
@@ -28,7 +30,7 @@ pub fn part1(lines: &[&str]) -> u32 {
 pub fn part2(lines: &[&str]) -> String {
     for a in lines {
         for b in lines {
-            if let Some(id) = helpers::extract(a, b) {
+            if let Some(id) = extract(a, b) {
                 return id;
             }
         }
@@ -36,50 +38,45 @@ pub fn part2(lines: &[&str]) -> String {
     unreachable!()
 }
 
-///! Helper routines
-pub mod helpers {
-    use std::collections::HashMap;
+/// Take two strings and if they differ at exactly one index, return the equal chars in sequence.
+pub fn extract(a: &str, b: &str) -> Option<String> {
+    debug_assert!(a.len() == b.len());
 
-    /// Take two strings and if they differ at exactly one index, return the equal chars in sequence.
-    pub fn extract(a: &str, b: &str) -> Option<String> {
-        debug_assert!(a.len() == b.len());
-
-        match a.chars().zip(b.chars()).filter(|x| x.0 != x.1).count() {
-            1 => Some(
-                a.chars()
-                    .zip(b.chars())
-                    .filter(|x| x.0 == x.1)
-                    .map(|x| x.0)
-                    .collect(),
-            ),
-            _ => None,
-        }
+    match a.chars().zip(b.chars()).filter(|x| x.0 != x.1).count() {
+        1 => Some(
+            a.chars()
+                .zip(b.chars())
+                .filter(|x| x.0 == x.1)
+                .map(|x| x.0)
+                .collect(),
+        ),
+        _ => None,
     }
+}
 
-    /// Test if the line has characters that repeat the 2 or 3 times
-    pub fn repeated(line: &str) -> (bool, bool) {
-        let mut counts = HashMap::new();
-        line.chars()
-            .for_each(|c| *counts.entry(c).or_insert(0) += 1);
+/// Test if the line has characters that repeat the 2 or 3 times
+pub fn repeated(line: &str) -> (bool, bool) {
+    let mut counts = HashMap::new();
+    line.chars()
+        .for_each(|c| *counts.entry(c).or_insert(0) += 1);
 
-        let twice = counts.iter().any(|e| *e.1 == 2);
-        let thrice = counts.iter().any(|e| *e.1 == 3);
+    let twice = counts.iter().any(|e| *e.1 == 2);
+    let thrice = counts.iter().any(|e| *e.1 == 3);
 
-        (twice, thrice)
-    }
+    (twice, thrice)
+}
 
-    /// Read the given input into lines
-    pub fn read(line: &str) -> Vec<&str> {
-        line.lines()
-            .map(str::trim)
-            .filter(|s| !s.is_empty())
-            .collect()
-    }
+/// Read the given input into lines
+pub fn read(line: &str) -> Vec<&str> {
+    line.lines()
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+        .collect()
 }
 
 #[test]
 fn examples() {
-    let one = helpers::read(
+    let one = read(
         r"
     abcdef
     bababc
@@ -91,7 +88,7 @@ fn examples() {
     ",
     );
 
-    let two = helpers::read(
+    let two = read(
         r"
     abcde
     fghij
@@ -109,7 +106,7 @@ fn examples() {
 
 #[test]
 fn solution() {
-    let input: Vec<&str> = helpers::read(include_str!("input/2"));
+    let input: Vec<&str> = read(include_str!("input/2"));
     assert_eq!(part1(&input), 7192);
     assert_eq!(part2(&input), "mbruvapghxlzycbhmfqjonsie");
 }
