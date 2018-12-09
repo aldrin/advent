@@ -18,3 +18,28 @@
 
 pub mod y2017;
 pub mod y2018;
+
+/// Results and Optionals are unwrapped on trust
+pub const TRUST: &str = "Assume trusted input";
+
+/// Read lines from input
+pub fn lines(input: &str) -> impl Iterator<Item=&str> {
+    input.lines().filter_map(|s| {
+        let i = s.trim();
+        if i.is_empty() {
+            None
+        } else {
+            Some(i)
+        }
+    })
+}
+
+/// Parse delimited segments from the input
+pub fn parse<'a, T: std::str::FromStr>(
+    input: &'a str,
+    delimit: &'static str,
+) -> impl Iterator<Item=T> + 'a {
+    input
+        .split(move |c| delimit.contains(c))
+        .filter_map(|s| s.parse().ok())
+}
