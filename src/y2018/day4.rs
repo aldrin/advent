@@ -51,10 +51,13 @@ pub fn read(input: &str) -> SleepLog {
 
 /// `O(g)` Pick a guard based on the given strategy
 pub fn choose<F>(log: &SleepLog, strategy: F) -> (usize, usize)
-    where
-        F: Fn(&[u32]) -> u32,
+where
+    F: Fn(&[u32]) -> u32,
 {
-    let (sleepiest_guard, _) = log.iter().max_by_key(|(_, sleep)| strategy(sleep)).expect(TRUST);
+    let (sleepiest_guard, _) = log
+        .iter()
+        .max_by_key(|(_, sleep)| strategy(sleep))
+        .expect(TRUST);
 
     let (sleepiest_minute, _) = log
         .get(sleepiest_guard)

@@ -23,7 +23,7 @@ pub mod y2018;
 pub const TRUST: &str = "Assume trusted input";
 
 /// Read lines from input
-pub fn lines(input: &str) -> impl Iterator<Item=&str> {
+pub fn lines(input: &str) -> impl Iterator<Item = &str> {
     input.lines().filter_map(|s| {
         let i = s.trim();
         if i.is_empty() {
@@ -38,7 +38,7 @@ pub fn lines(input: &str) -> impl Iterator<Item=&str> {
 pub fn parse<'a, T: std::str::FromStr>(
     input: &'a str,
     delimit: &'static str,
-) -> impl Iterator<Item=T> + 'a {
+) -> impl Iterator<Item = T> + 'a {
     input
         .split(move |c| delimit.contains(c))
         .filter_map(|s| s.parse().ok())

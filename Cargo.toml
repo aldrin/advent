@@ -7,5 +7,3 @@ license     = "MIT"
 readme      = "README.md"
 homepage    = "https://github.com/aldrin/advent"
 keywords    = ["puzzles"]
-
-[dependencies]
