@@ -29,7 +29,8 @@ pub fn no_anagram(line: &&str) -> bool {
             let mut vec: Vec<char> = m.chars().collect();
             vec.sort();
             vec
-        }).all(|w| seen.insert(w))
+        })
+        .all(|w| seen.insert(w))
 }
 
 #[test]

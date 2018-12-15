@@ -20,9 +20,9 @@ pub mod y2017;
 pub mod y2018;
 
 /// Results and Optionals are unwrapped on trust
-pub const TRUST: &str = "Assume trusted input";
+pub const TRUST: &str = "Input guarantees violated";
 
-/// Read lines from input
+/// Read non-empty lines from input
 pub fn lines(input: &str) -> impl Iterator<Item = &str> {
     input.lines().filter_map(|s| {
         let i = s.trim();
@@ -34,12 +34,15 @@ pub fn lines(input: &str) -> impl Iterator<Item = &str> {
     })
 }
 
-/// Parse delimited segments from the input
-pub fn parse<'a, T: std::str::FromStr>(
-    input: &'a str,
-    delimit: &'static str,
-) -> impl Iterator<Item = T> + 'a {
+/// Read lines from the input, parse them and collect them into a vector
+pub fn parse_lines<T: std::str::FromStr>(input: &str) -> Vec<T> {
+    lines(input).filter_map(|s| s.parse().ok()).collect()
+}
+
+/// Split the input into segments, parse them and collect them into a vector
+pub fn parse_splits<T: std::str::FromStr>(input: &str, delimit: &str) -> Vec<T> {
     input
         .split(move |c| delimit.contains(c))
         .filter_map(|s| s.parse().ok())
+        .collect()
 }

@@ -143,7 +143,7 @@ pub fn spiral() -> impl Iterator<Item = Move> {
 
 /// Pretty print moves
 impl fmt::Display for Move {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         if self.x.abs() != 0 {
             if self.x.abs() != 1 {
                 write!(f, "{}", self.x.abs())?;

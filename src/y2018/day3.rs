@@ -4,7 +4,8 @@
 //! Input size parameters `n`: Number of claims and `m`: dimension of the fabric grid.
 
 use std::cmp::max;
-use std::str::FromStr;
+
+use super::super::{lines, parse_splits, TRUST};
 
 /// A single claim
 pub struct Claim {
@@ -31,13 +32,10 @@ pub struct Fabric {
 /// Read a single claim from the form
 pub fn read_claim(input: &str) -> Claim {
     // Expecting  `#1 @ 1,3: 4x4`
-    let num: Vec<usize> = input
-        .split(|c| "#@,:x ".contains(c))
-        .filter_map(|c| usize::from_str(c).ok())
-        .collect();
+    let num = parse_splits(input, "#@,:x ");
 
     // Must have 5 numbers
-    debug_assert!(num.len() == 5);
+    debug_assert!(num.len() == 5, TRUST);
 
     // Unpack
     Claim {
@@ -54,15 +52,13 @@ pub fn read(input: &str) -> Fabric {
     let mut dimensions = (0, 0);
 
     // Read claims and update the dimensions
-    let claims: Vec<Claim> = input
-        .lines()
-        .map(str::trim)
-        .filter(|s| !s.is_empty())
+    let claims: Vec<Claim> = lines(input)
         .map(read_claim)
         .inspect(|c| {
             dimensions.0 = max(c.x + c.l, dimensions.0);
             dimensions.1 = max(c.y + c.h, dimensions.1);
-        }).collect();
+        })
+        .collect();
 
     // Create an overlap tracking grid
     let mut overlaps = vec![vec![0; dimensions.1]; dimensions.0];

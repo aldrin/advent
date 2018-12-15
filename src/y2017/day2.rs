@@ -32,7 +32,8 @@ pub fn read_matrix(input: &str) -> Vec<Vec<u32>> {
             l.split_whitespace()
                 .filter_map(|s| u32::from_str(s).ok())
                 .collect()
-        }).collect()
+        })
+        .collect()
 }
 
 /// Each row has 2 numbers where the larger is an whole multiple of the smaller. Find those

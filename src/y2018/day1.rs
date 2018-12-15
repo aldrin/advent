@@ -4,6 +4,8 @@
 
 use std::collections::HashSet;
 
+use super::super::TRUST;
+
 /// `O(n)` one-liner with no additional space
 pub fn part1(input: &[i32]) -> i32 {
     input.iter().sum()
@@ -21,7 +23,8 @@ pub fn part2(input: &[i32]) -> i32 {
             return current;
         }
     }
-    unreachable!()
+
+    unreachable!(TRUST)
 }
 
 #[test]
@@ -37,12 +40,8 @@ fn examples() {
 
 #[test]
 fn solution() {
-    use std::str::FromStr;
-    let input = include_str!("input/1");
-    let numbers: Vec<i32> = input
-        .lines()
-        .filter_map(|s| i32::from_str(s).ok())
-        .collect();
+    use super::super::parse_lines;
+    let numbers: Vec<i32> = parse_lines(include_str!("input/1"));
     assert_eq!(part1(&numbers), 525);
     assert_eq!(part2(&numbers), 75749);
 }

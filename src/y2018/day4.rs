@@ -5,7 +5,7 @@
 
 use std::collections::BTreeMap;
 
-use super::super::{lines, parse, TRUST};
+use super::super::{lines, parse_splits, TRUST};
 
 /// SleepLog is a mapping from guard to the number of times slept in a given minute `O(g)` space
 pub type SleepLog = BTreeMap<usize, Vec<u32>>;
@@ -25,7 +25,7 @@ pub fn read(input: &str) -> SleepLog {
 
     // Read the log and update the minutes slept
     for line in records {
-        let numbers: Vec<usize> = parse(line, "[-:] # ").collect();
+        let numbers: Vec<usize> = parse_splits(line, "[-:] # ");
 
         if line.contains("Guard") {
             guard = numbers[5];

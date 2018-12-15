@@ -4,6 +4,8 @@
 
 use std::collections::HashMap;
 
+use super::super::{lines, TRUST};
+
 /// Find the checksum of the input defined as the product of the number of lines in the input that
 /// have 2 characters repeated with the number of lines with three characters repeated.
 /// `O(n*m)` for `n` lines with `m` chars each. `O(1)` extra space for a map to count characters.
@@ -35,12 +37,13 @@ pub fn part2(lines: &[&str]) -> String {
             }
         }
     }
-    unreachable!()
+
+    unreachable!(TRUST)
 }
 
 /// Take two strings and if they differ at exactly one index, return the equal chars in sequence.
 pub fn extract(a: &str, b: &str) -> Option<String> {
-    debug_assert!(a.len() == b.len());
+    debug_assert!(a.len() == b.len(), TRUST);
 
     match a.chars().zip(b.chars()).filter(|x| x.0 != x.1).count() {
         1 => Some(
@@ -66,12 +69,9 @@ pub fn repeated(line: &str) -> (bool, bool) {
     (twice, thrice)
 }
 
-/// Read the given input into lines
-pub fn read(line: &str) -> Vec<&str> {
-    line.lines()
-        .map(str::trim)
-        .filter(|s| !s.is_empty())
-        .collect()
+/// Read input lines
+pub fn read(s: &str) -> Vec<&str> {
+    lines(s).collect()
 }
 
 #[test]
