@@ -56,7 +56,9 @@ pub fn part2(input: usize) -> usize {
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, Default)]
 /// A move in 2 dimensions
 pub struct Move {
+    /// X dimension
     pub x: i32,
+    /// Y dimension
     pub y: i32,
 }
 

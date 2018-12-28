@@ -5,7 +5,7 @@
 
 use std::collections::BTreeMap;
 
-use super::super::{lines, parse_splits, TRUST};
+use crate::{lines, parse_splits, TRUST};
 
 /// SleepLog is a mapping from guard to the number of times slept in a given minute `O(g)` space
 pub type SleepLog = BTreeMap<usize, Vec<u32>>;

@@ -1,6 +1,6 @@
+#![warn(missing_docs)]
 // Copyright 2018 by Aldrin J D'Souza.
 // Licensed under the MIT License <https://opensource.org/licenses/MIT>
-
 //! # Advent of Code
 //!
 //! `advent` is a collection of my solutions to the [Advent of Code] puzzles posted in December each
@@ -15,7 +15,6 @@
 //! ```
 //!
 //! [Advent of Code]: https://adventofcode.com/
-
 pub mod y2017;
 pub mod y2018;
 

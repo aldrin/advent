@@ -5,7 +5,7 @@
 
 use std::cmp::max;
 
-use super::super::{lines, parse_splits, TRUST};
+use crate::{lines, parse_splits, TRUST};
 
 /// A single claim
 pub struct Claim {

@@ -3,7 +3,7 @@
 //! Alchemical Reduction ([Statement](https://adventofcode.com/2018/day/5)).
 //! Input size parameters `n`: Length of input, `m` number of reacting units
 
-use super::super::TRUST;
+use crate::TRUST;
 
 /// ASCII case difference
 const CASE: u8 = b'a' - b'A';

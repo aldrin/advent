@@ -4,7 +4,7 @@
 
 use std::collections::HashMap;
 
-use super::super::{lines, TRUST};
+use crate::{lines, TRUST};
 
 /// Find the checksum of the input defined as the product of the number of lines in the input that
 /// have 2 characters repeated with the number of lines with three characters repeated.
