@@ -19,7 +19,10 @@ pub mod y2017;
 pub mod y2018;
 
 /// Results and Optionals are unwrapped on trust
-pub const TRUST: &str = "Input guarantees violated";
+pub const TRUST: &str = "Input guarantees not met";
+
+/// Results and Optionals that can be unwrapped obviously
+pub const OBVIOUS: &str = "Wrong assumption";
 
 /// Read non-empty lines from input
 pub fn lines(input: &str) -> impl Iterator<Item = &str> {
@@ -41,7 +44,7 @@ pub fn parse_lines<T: std::str::FromStr>(input: &str) -> Vec<T> {
 /// Split the input into segments, parse them and collect them into a vector
 pub fn parse_splits<T: std::str::FromStr>(input: &str, delimit: &str) -> Vec<T> {
     input
-        .split(move |c| delimit.contains(c))
+        .split(|c| delimit.contains(c))
         .filter_map(|s| s.parse().ok())
         .collect()
 }
